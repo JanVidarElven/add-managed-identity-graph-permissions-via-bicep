@@ -41,7 +41,7 @@ param appRoles array = [
 
 // Looping through the App Roles and assigning them to the Managed Identity
 resource assignAppRole 'Microsoft.Graph/appRoleAssignedTo@v1.0' = [for appRole in appRoles: {
-  appRoleId: first(filter(graphSpn.appRoles, role => role.value == appRole)).id
+  appRoleId: (filter(graphSpn.appRoles, role => role.value == appRole)[0]).id
   principalId: miSpn.id
   resourceId: graphSpn.id
 }]
